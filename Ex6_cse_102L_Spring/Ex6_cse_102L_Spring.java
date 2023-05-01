@@ -4,13 +4,7 @@ public class Ex6_cse_102L_Spring {
     public static void main(String[] args) {
 
       PayPal a = new PayPal("sdfvd", "12345");
-        ;
-        System.out.println(a.encrypt("shsgndfg"));
-
-
-
-
-
+      System.out.println(a.encrypt("shsgndfg"));
 
     }
 }
