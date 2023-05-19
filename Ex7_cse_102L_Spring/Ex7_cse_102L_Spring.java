@@ -1,24 +1,28 @@
 import java.util.ArrayList;
 public class Ex7_20210808053 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PartyLimitReachedException, AlreadyInPartyException, CharacterIsNotInPartyException {
         Attributes a = new Attributes(2, 4);
         PlayableCharacter p = new Warrior("name");
         Weapon weapon = new Weapon("tu", 12, 2);
+        Paladin paladin = new Paladin("ahp");
         Party c = new Party();
         Warrior war = new Warrior("a");
         System.out.println(p.health);
+        Skeleton ske = new Skeleton("asldv", a);
 
 
+       p.quitParty();
+        c.addCharacter(p);
+        war.joinParty(c);
+        war.quitParty();
+        c.removeCharacter(war);
 
-
-
-        p.joinParty(c);
-        System.out.println(p.isInParty());
         war.lootWeapon(weapon);
         war.attack(p);war.attack(p);war.attack(p);
         System.out.println(war.health);
         war.takeHealing(10);
         System.out.println(war.health);
+
 
     }
 }
@@ -223,7 +227,7 @@ class Skeleton extends NonPlayableCharacter implements Combat{
 
     @Override
     public void takeDamage(int damage) {
-        health -= damage;
+        health -= Math.min(damage, health);
 
     }
 
@@ -277,10 +281,7 @@ class Warrior extends PlayableCharacter implements Combat{
 
     @Override
     public void takeDamage(int damage) {
-        if (damage < health)
-            health -= damage;
-        else
-            health -= health;
+        health -= Math.min(damage, health);
     }
 
     @Override
@@ -421,7 +422,7 @@ class Party{
     private int mixedCount = 0;
 
     public void addCharacter(PlayableCharacter character) throws PartyLimitReachedException, AlreadyInPartyException {
-        if (fighters.size() + healers.size() - mixedCount > partyLimit) {
+        if (fighters.size() + healers.size() - mixedCount >= partyLimit) {
             throw new PartyLimitReachedException("Party limit has been reached. Cannot add more characters.");
         }
         if(character instanceof Paladin){
