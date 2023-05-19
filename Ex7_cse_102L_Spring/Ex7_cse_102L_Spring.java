@@ -11,7 +11,8 @@ public class Ex7_20210808053 {
         Skeleton ske = new Skeleton("asldv", a);
 
 
-
+       p.quitParty();
+        c.addCharacter(p);
         c.addCharacter(p);
         war.joinParty(c);
         war.quitParty();
@@ -66,7 +67,7 @@ class Spell implements Useable{
     }
 
     private int heal(){
-        return (int)(Math.random() * maxHeal) + minHeal;
+        return (int) (Math.random() * (maxHeal - minHeal) + minHeal);
     }
 
     @Override
@@ -95,7 +96,7 @@ class Weapon implements Useable{
     }
 
     private int attack(){
-        return (int)(Math.random() * maxDamage) + minDamage;
+        return (int) (Math.random() * (maxDamage - minDamage) + minDamage);
     }
     @Override
     public int use() {
@@ -299,7 +300,7 @@ class Warrior extends PlayableCharacter implements Combat{
 
     @Override
     public void attack(Damageable target) {
-        takeDamage(attributes.getStrength() + weapon.use());
+        target.takeDamage(attributes.getStrength() + weapon.use());
     }
 
     @Override
@@ -394,7 +395,7 @@ class Paladin extends PlayableCharacter implements Combat, Caster{
 
     @Override
     public void attack(Damageable target) {
-        takeDamage(attributes.getStrength() + weapon.use());
+        target.takeDamage(attributes.getStrength() + weapon.use());
     }
 
     @Override
@@ -445,7 +446,6 @@ class Party{
             }
             healers.add((Caster) character);
         }
-        System.out.println(mixedCount);
     }
 
     public void removeCharacter(PlayableCharacter character) throws CharacterIsNotInPartyException {

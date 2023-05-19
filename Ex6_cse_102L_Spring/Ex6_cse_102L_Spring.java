@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Ex6_cse_102L_Spring {
     public static void main(String[] args) {
-        
+
 
     }
 }
