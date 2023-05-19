@@ -11,7 +11,7 @@ public class Ex7_20210808053 {
         Skeleton ske = new Skeleton("asldv", a);
 
 
-       p.quitParty();
+      
         c.addCharacter(p);
         war.joinParty(c);
         war.quitParty();
